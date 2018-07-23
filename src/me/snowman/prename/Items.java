@@ -16,7 +16,7 @@ public class Items {
     private ItemRename plugin = ItemRename.getPlugin(ItemRename.class);
     public static Map<String, String> mat = new HashMap<>();
 
-    // 1.8 - 1.13 compatibility
+    // 1.8 - 1.13 compatibility here, I hate it so much
     public void matInit(){
         String[] tmp = Bukkit.getVersion().split("MC: ");
         String version = tmp[tmp.length - 1].substring(0, 4);
