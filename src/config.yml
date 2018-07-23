@@ -1,0 +1,37 @@
+RenameCostEnabled: true
+ColorizeCostEnabled: false
+RenameCost: 100
+ColorizeCost: 100
+TagColorLore:
+- '&f'
+- '&9Use this rename tag at'
+- '&7&l/colorize'
+TagRenameLore:
+- '&f'
+- '&9Use this rename tag at'
+- '&7&l/rename'
+DyeLore:
+- '&f'
+- '&9Use this dye at'
+- '&7&l/colorize'
+LockedLore:
+- '&f'
+- '&9This tag is locked'
+#-------------------Messages--------------------
+Messages:
+  Error: "&4ERROR"
+  NoMoney: "&cNot enough money, required %required%$"
+  PaidColor: "&9You paid %required%$ for coloring the tag"
+  PaidRename: "&9You paid %required%$ for coloring the item"
+  Waiting: "&eWaiting for items"
+  ReadyRename: "&aReady to rename"
+  ReadyColor: "&aReady to colorize"
+  RenameTitle: "&9Rename your item"
+  ColorTitle: "&9Colorize your item"
+  SuccesRename: "&aSuccessfully renamed item."
+  SuccesColor: "&aSuccessfully colorized tag."
+  NoDye: "&9Please specify a color:"
+  TagGive: "&9You were given a tag"
+  DyeGive: "&9You were given the dye &f%dye%"
+  Reload: "&9The config has been reloaded successfully."
+  NoPerm: "&cYou don't have permission to execute this command."

@@ -1,0 +1,13 @@
+main: me.snowman.prename.ItemRename
+author: SnowmanFTW
+version: 1.3.0
+api-version: 1.13
+name: ItemRename
+commands:
+  itemrename:
+    description: Main command
+    aliases: [irename, ir]
+  rename:
+    description: Rename command
+  colorize:
+    description: Rename command
