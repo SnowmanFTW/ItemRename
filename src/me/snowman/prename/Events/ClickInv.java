@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -39,6 +40,13 @@ public class ClickInv implements Listener {
 
         ItemStack item = event.getCurrentItem();
         Player player = (Player) event.getWhoClicked();
+        if(event.getInventory().getType() == InventoryType.ANVIL){
+            if(event.getSlotType() == InventoryType.SlotType.RESULT){
+                if(event.getInventory().getItem(0).getItemMeta().getLore().equals(lorerenametag) || event.getInventory().getItem(0).getItemMeta().getLore().equals(lockedlore) || event.getInventory().getItem(0).getItemMeta().getLore().equals(dyelore)){
+                    event.setCancelled(true);
+                }
+            }
+        }
         if (player.getOpenInventory().getTitle().equalsIgnoreCase(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("Messages.RenameTitle"))) || player.getOpenInventory().getTitle().equalsIgnoreCase(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("Messages.ColorTitle")))) {
             if (event.getClickedInventory() == null) {
                 return;
@@ -68,7 +76,7 @@ public class ClickInv implements Listener {
             if(event.getInventory().getItem(1) == null){
                 return;
            }
-            if(event.getCurrentItem().equals(i.readyc()) && player.getOpenInventory().getItem(1).getItemMeta().getLore().equals(i.getLorerenametag()) && player.getOpenInventory().getItem(3).equals(i.bold()) || player.getOpenInventory().getItem(3).equals(i.italic()) || player.getOpenInventory().getItem(3).equals(i.locked())){
+            if(event.getCurrentItem().equals(i.readyc()) && player.getOpenInventory().getItem(1).getItemMeta().getLore().equals(i.getLorerenametag()) && player.getOpenInventory().getItem(3).equals(i.bold(1)) || player.getOpenInventory().getItem(3).equals(i.italic(1)) || player.getOpenInventory().getItem(3).equals(i.locked(1))){
                 if(event.getInventory().getItem(7) == null){
                     return;
                 }
