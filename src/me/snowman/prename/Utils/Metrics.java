@@ -1,4 +1,4 @@
-package me.snowman.prename;
+package me.snowman.prename.Utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;

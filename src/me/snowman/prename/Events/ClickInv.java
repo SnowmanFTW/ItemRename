@@ -1,22 +1,17 @@
 package me.snowman.prename.Events;
 
 import me.snowman.prename.ItemRename;
-import me.snowman.prename.Items;
-import net.milkbowl.vault.Vault;
-import net.milkbowl.vault.VaultEco;
+import me.snowman.prename.Utils.Items;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ClickInv implements Listener {

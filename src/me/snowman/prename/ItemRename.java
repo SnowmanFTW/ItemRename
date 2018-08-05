@@ -1,10 +1,14 @@
 package me.snowman.prename;
 
 import me.snowman.prename.Commands.Rename;
+import me.snowman.prename.Events.BlockInteract;
 import me.snowman.prename.Events.ClickInv;
 import me.snowman.prename.Events.CloseInv;
 import me.snowman.prename.Events.DragInv;
+import me.snowman.prename.Utils.ConfigManager;
+import me.snowman.prename.Utils.Items;
 import me.snowman.prename.Utils.MessageUtils;
+import me.snowman.prename.Utils.Metrics;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -18,6 +22,10 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import javax.net.ssl.HttpsURLConnection;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.List;
 
 public class ItemRename extends JavaPlugin {
@@ -28,11 +36,11 @@ public class ItemRename extends JavaPlugin {
     public void onEnable() {
         Items i = new Items();
         Metrics metrics = new Metrics(this);
-        if(Bukkit.getServer().getPluginManager().getPlugin("Essentials").isEnabled() && Bukkit.getServer().getPluginManager().getPlugin("Vault").isEnabled()){
+        if(Bukkit.getServer().getPluginManager().isPluginEnabled("Vault")){
             setupEconomy();
             getServer().getConsoleSender().sendMessage(msgUtils.colorize("&9Economy plugin found."));
         }else{
-            getServer().getConsoleSender().sendMessage(msgUtils.colorize("&fEssentials &9and &fVault &9not found. Economy will not work."));
+            getServer().getConsoleSender().sendMessage(msgUtils.colorize("&fVault &9not found. Economy will not work."));
             getConfig().set("ColorizeCostEnabled", false);
             getConfig().set("RenameCostEnabled", false);
             saveConfig();
@@ -40,6 +48,8 @@ public class ItemRename extends JavaPlugin {
 
         i.matInit();
         Config();
+        ConfigManager c = new ConfigManager();
+        c.setupData();
 
         getCommand("itemrename").setExecutor(new Rename());
         getCommand("rename").setExecutor(new Rename());
@@ -47,7 +57,9 @@ public class ItemRename extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ClickInv(), this);
         getServer().getPluginManager().registerEvents(new CloseInv(), this);
         getServer().getPluginManager().registerEvents(new DragInv(), this);
+        getServer().getPluginManager().registerEvents(new BlockInteract(), this);
         getServer().getConsoleSender().sendMessage(msgUtils.colorize("&9Item Rename has been enabled! &f(V" + this.getDescription().getVersion() + ")"));
+        updatePlugin();
     }
 
     public void onDisable() {
@@ -340,5 +352,32 @@ public class ItemRename extends JavaPlugin {
 
             }
         }.runTaskTimerAsynchronously(this, 0, 1);
+    }
+
+    public void updatePlugin(){
+        new BukkitRunnable(){
+
+            @Override
+            public void run(){
+                try {
+                    String spigotId = "58756";
+                    // Open connection with spigot's web API
+                    HttpsURLConnection connection = (HttpsURLConnection) new URL("https://api.spigotmc.org/legacy/update.php?resource=" + spigotId).openConnection();
+
+                    // Versions
+                    String latest = new BufferedReader(new InputStreamReader(connection.getInputStream())).readLine().toLowerCase();
+                    String installed = getDescription().getVersion().toLowerCase();
+
+                    // Check if it's outdated or not
+                    if (!installed.equals(latest)) {
+                        getServer().getConsoleSender().sendMessage(msgUtils.colorize("&9Your plugin version &f(&9" + installed + "&f) &9is not the latest one &f(&9" + latest + "&f)\n&9You can download it here: &fhttps://www.spigotmc.org/resources/item-entity-rename-1-8-1-13.58756/\n&9Or by typing &f/ir update &9in game."));
+                    } else {
+                        getServer().getConsoleSender().sendMessage(msgUtils.colorize("&9Plugin version is up-to-date &f(&9" + installed + "&f)&9."));
+                    }
+                } catch (Exception e) {
+                    getServer().getConsoleSender().sendMessage(msgUtils.colorize("&cThere was an error connecting to SpigotMC API."));
+                }
+            }
+        }.runTaskLaterAsynchronously(this, 40);
     }
 }

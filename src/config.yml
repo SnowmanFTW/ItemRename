@@ -37,3 +37,6 @@ Messages:
   DyeGiveAll: "&9You were given a Sample Set of Dyes."
   Reload: "&9The config has been reloaded successfully."
   NoPerm: "&cYou don't have permission to execute this command."
+  RenameHolo: "&9Rename Block"
+  ColorizeHolo: "&9Colorize Block"
+  SameSetBlock: "&9You can't setblock two times on one block."

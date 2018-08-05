@@ -1,7 +1,7 @@
-package me.snowman.prename;
+package me.snowman.prename.Utils;
 
 
-import me.snowman.prename.Utils.MessageUtils;
+import me.snowman.prename.ItemRename;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -64,7 +64,7 @@ public class Items {
             mat.put("purple", "PURPLE_DYE");
             mat.put("lime", "LIME_DYE");
             mat.put("aqua", "LIGHT_BLUE_DYE");
-            mat.put("lightred", "RED_DYE");
+            mat.put("lightred", "ROSE_RED");
             mat.put("pink", "PINK_DYE");
             mat.put("yellow", "DANDELION_YELLOW");
             mat.put("white", "BONE_MEAL");
@@ -76,7 +76,7 @@ public class Items {
             mat.put("orange_glass_pane", "ORANGE_STAINED_GLASS_PANE");
             mat.put("yellow_glass_pane", "YELLOW_STAINED_GLASS_PANE");
             mat.put("green_glass_pane", "LIME_STAINED_GLASS_PANE");
-            Bukkit.getConsoleSender().sendMessage(msgUtils.colorize("&1Successfully switched to materials from version: &f1.13"));
+            Bukkit.getConsoleSender().sendMessage(msgUtils.colorize("&9Successfully switched to materials from version: &f1.13"));
         }
     }
 
