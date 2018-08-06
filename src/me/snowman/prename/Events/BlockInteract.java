@@ -50,7 +50,7 @@ public class BlockInteract implements Listener {
                     c.getData().set(keys.get(r), null);
                     c.saveData();
                     keys.remove(keys);
-                    for(Entity e : player.getLocation().getChunk().getEntities()){
+                    for(Entity e : player.getWorld().getEntities()){
                        if(e.getName().equalsIgnoreCase(msgUtils.colorize(plugin.getConfig().getString("Messages.RenameHolo"))) || e.getName().equalsIgnoreCase(msgUtils.colorize(plugin.getConfig().getString("Messages.ColorizeHolo")))){
                            if(e.getLocation().equals(loc)) {
                                e.remove();
@@ -71,7 +71,7 @@ public class BlockInteract implements Listener {
                     invcol.setItem(8, i.empty());
 
                     player.openInventory(invcol);
-                    plugin.rename(player);
+                    plugin.colorize(player);
 
                     event.setCancelled(true);
                     keys.removeAll(keys);

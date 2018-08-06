@@ -42,6 +42,7 @@ public class ConfigManager {
     public void saveData(){
         try{
             datacfg.save(datafile);
+            Bukkit.getConsoleSender().sendMessage("salvat");
         }catch(IOException e){
             Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.RED + "'data.yml' could not be saved.");
         }

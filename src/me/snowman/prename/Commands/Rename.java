@@ -32,7 +32,7 @@ public class Rename implements CommandExecutor {
     private static Economy econ = null;
     private Items i = new Items();
     private MessageUtils msgUtils = new MessageUtils();
-    private static ConfigManager c = new ConfigManager();
+    ConfigManager c = new ConfigManager();
     private ArrayList<String> keys = new ArrayList<>();
 
     public boolean isInt(String str) {
@@ -280,12 +280,14 @@ public class Rename implements CommandExecutor {
                         sender.sendMessage(msgUtils.colorize("&9Usage: &f/ir setblock <name> <rename/colorize>"));
                         return true;
                     }
-                    if (c.getData().getString(args[1]) == null) {
+                    c.reloadData();
+                    for(String key : c.getData().getKeys(false)){
+                        keys.add(key);
+                    }
+                    if (!keys.contains(args[1])) {
+                        c.reloadData();
                         Block block = player.getTargetBlock(null, 5);
                         int r;
-                        for(String key : c.getData().getKeys(false)){
-                            keys.add(key);
-                        }
                         for(r = 0; r < c.getData().getKeys(false).size(); r++){
                             if(block.getWorld().getName() == Bukkit.getWorld(c.getData().getString(keys.get(r) + ".World")).getName() && block.getX() == Integer.valueOf(c.getData().getString(keys.get(r) + ".X")) && block.getY() == Integer.valueOf(c.getData().getString(keys.get(r) + ".Y")) && block.getZ() == Integer.valueOf(c.getData().getString(keys.get(r)+ ".Z"))){
                                 player.sendMessage(msgUtils.colorize(plugin.getConfig().getString("Messages.SameSetBlock")));
@@ -337,6 +339,7 @@ public class Rename implements CommandExecutor {
                         }
                     } else {
                         player.sendMessage(msgUtils.colorize("&cThat name is already taken."));
+                        keys.removeAll(keys);
                     }
                 }else{
                     player.sendMessage(msgUtils.colorize(plugin.getConfig().getString("Messages.NoPerm")));
