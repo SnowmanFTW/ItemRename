@@ -1,6 +1,6 @@
 main: me.snowman.prename.ItemRename
 author: SnowmanFTW
-version: 1.4.2
+version: 1.4.3
 api-version: 1.13
 name: ItemRename
 softdepend: [Vault]
