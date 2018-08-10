@@ -112,16 +112,10 @@ public class ItemRename extends JavaPlugin {
                             player.getOpenInventory().setItem(4, i.error());
                             return;
                         }
-                        if (getConfig().getString("RenameCostEnabled").equalsIgnoreCase("true")) {
-                            if(economy.has(player, 0)){
-                                player.getOpenInventory().setItem(4, i.nomoneyr());
+                            if (economy.getBalance(player) < Double.valueOf(getConfig().getString("RenameCost"))) {
+                                player.getOpenInventory().setItem(4, i.nomoneyc());
                                 return;
                             }
-                            if (economy.getBalance(player) < Integer.valueOf(getConfig().getString("RenameCost"))) {
-                                player.getOpenInventory().setItem(4, i.nomoneyr());
-                                return;
-                            }
-                        }
                         if (player.getOpenInventory().getItem(3).getItemMeta().getLore().equals(i.getLorecolortag()) && !player.getOpenInventory().getItem(1).getType().equals(Material.AIR)) {
                             ItemStack item3 = player.getOpenInventory().getItem(3);
                             if (item3.getItemMeta().hasDisplayName()) {
@@ -193,7 +187,7 @@ public class ItemRename extends JavaPlugin {
                             return;
                         }
                         if (getConfig().getString("ColorizeCostEnabled").equalsIgnoreCase("true")) {
-                            if (economy.getBalance(player) < Integer.valueOf(getConfig().getString("ColorizeCost"))) {
+                            if (economy.getBalance(player) < Double.valueOf(getConfig().getString("ColorizeCost"))) {
                                 player.getOpenInventory().setItem(4, i.nomoneyc());
                                 return;
                             }
