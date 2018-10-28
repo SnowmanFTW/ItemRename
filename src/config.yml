@@ -17,6 +17,23 @@ DyeLore:
 LockedLore:
 - '&f'
 - '&9This tag is locked'
+DisabledWorlds:
+- 'world_nether'
+GUI:
+  Rename:
+    Color: darkgray #black/brown/darkblue/green/cya9n/darkred/magenta/orange/gray/darkgray/blue/lime/aqua/pink/yellow/white
+    Size: 9 #slots
+    Slot1: 1 #slot
+    Slot2: 3
+    Slot3: 6
+    Changer: 4
+  Colorize:
+    Color: darkgray
+    Size:
+    Slot1: 1
+    Slot2: 3
+    Slot3: 6
+    Changer: 4
 #-------------------Messages--------------------
 Messages:
   Error: "&4ERROR"
@@ -40,3 +57,4 @@ Messages:
   RenameHolo: "&9Rename Block"
   ColorizeHolo: "&9Colorize Block"
   SameSetBlock: "&9You can't setblock two times on one block."
+  DWorld: "&9Renaming and coloring of items is disabled in this world."

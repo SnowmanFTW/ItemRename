@@ -89,56 +89,55 @@ public class ItemRename extends JavaPlugin {
                     cancel();
                 }
                 if (player.getOpenInventory().getTitle().equalsIgnoreCase(msgUtils.colorize(getConfig().getString("Messages.RenameTitle")))) {
-                    if (player.getOpenInventory().getItem(3).getType().equals(Material.AIR) && player.getOpenInventory().getItem(1).getType().equals(Material.AIR)) {
-                        player.getOpenInventory().setItem(4, i.waiting());
-                        player.getOpenInventory().setItem(7, new ItemStack(Material.AIR));
+                    if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Rename.Slot2")).getType().equals(Material.AIR) && player.getOpenInventory().getItem(getConfig().getInt("GUI.Rename.Slot1")).getType().equals(Material.AIR)) {
+                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Rename.Changer"), i.waiting());
+                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Rename.Slot3"), new ItemStack(Material.AIR));
                         return;
-                    } else if (player.getOpenInventory().getItem(3).getType().equals(Material.AIR)) {
-                        player.getOpenInventory().setItem(4, i.error());
-                        player.getOpenInventory().setItem(7, new ItemStack(Material.AIR));
+                    } else if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Rename.Slot2")).getType().equals(Material.AIR)) {
+                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Rename.Changer"), i.error());
+                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Rename.Slot3"), new ItemStack(Material.AIR));
                         return;
-                    } else if (player.getOpenInventory().getItem(1).getType().equals(Material.AIR)) {
-                        player.getOpenInventory().setItem(4, i.error());
-                        player.getOpenInventory().setItem(7, new ItemStack(Material.AIR));
+                    } else if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Rename.Slot1")).getType().equals(Material.AIR)) {
+                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Rename.Changer"), i.error());
+                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Rename.Slot3"), new ItemStack(Material.AIR));
                         return;
-                    } else if (!player.getOpenInventory().getItem(3).getType().equals(Material.AIR)) {
-                        if (player.getOpenInventory().getItem(3).hasItemMeta()) {
-                            if (player.getOpenInventory().getItem(3).getItemMeta().getLore().equals(i.getLorecolortag())) {
-                                player.getOpenInventory().setItem(4, i.error());
-                                player.sendMessage(player.getOpenInventory().getItem(3).getItemMeta().getLore().toString());
+                    } else if (!player.getOpenInventory().getItem(getConfig().getInt("GUI.Rename.Slot2")).getType().equals(Material.AIR)) {
+                        if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Rename.Slot2")).hasItemMeta()) {
+                            if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Rename.Slot2")).getItemMeta().getLore().equals(i.getLorecolortag())) {
+                                player.getOpenInventory().setItem(getConfig().getInt("GUI.Rename.Changer"), i.error());
                                 return;
                             }
                         } else {
-                            player.getOpenInventory().setItem(4, i.error());
+                            player.getOpenInventory().setItem(getConfig().getInt("GUI.Rename.Changer"), i.error());
                             return;
                         }
                             if (economy.getBalance(player) < Double.valueOf(getConfig().getString("RenameCost"))) {
-                                player.getOpenInventory().setItem(4, i.nomoneyc());
+                                player.getOpenInventory().setItem(getConfig().getInt("GUI.Rename.Changer"), i.nomoneyc());
                                 return;
                             }
-                        if (player.getOpenInventory().getItem(3).getItemMeta().getLore().equals(i.getLorecolortag()) && !player.getOpenInventory().getItem(1).getType().equals(Material.AIR)) {
-                            ItemStack item3 = player.getOpenInventory().getItem(3);
+                        if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Rename.Slot2")).getItemMeta().getLore().equals(i.getLorecolortag()) && !player.getOpenInventory().getItem(getConfig().getInt("GUI.Rename.Slot1")).getType().equals(Material.AIR)) {
+                            ItemStack item3 = player.getOpenInventory().getItem(getConfig().getInt("GUI.Rename.Slot2"));
                             if (item3.getItemMeta().hasDisplayName()) {
-                                player.getOpenInventory().setItem(4, i.readyr());
-                                ItemStack item1 = new ItemStack(player.getOpenInventory().getItem(1));
+                                player.getOpenInventory().setItem(getConfig().getInt("GUI.Rename.Changer"), i.readyr());
+                                ItemStack item1 = new ItemStack(player.getOpenInventory().getItem(getConfig().getInt("GUI.Rename.Slot1")));
                                 ItemStack item7 = new ItemStack(item1);
                                 ItemMeta meta = item7.getItemMeta();
                                 meta.setDisplayName(ChatColor.WHITE + item3.getItemMeta().getDisplayName());
                                 item7.setItemMeta(meta);
-                                player.getOpenInventory().setItem(7, item7);
+                                player.getOpenInventory().setItem(getConfig().getInt("GUI.Rename.Slot3"), item7);
                                 return;
                             }
                         }
-                        if (player.getOpenInventory().getItem(3).getItemMeta().getLore().equals(i.getLorerenametag()) || player.getOpenInventory().getItem(3).getItemMeta().getLore().equals(i.getLockedlore()) && !player.getOpenInventory().getItem(1).getType().equals(Material.AIR)) {
-                            ItemStack item3 = player.getOpenInventory().getItem(3);
+                        if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Rename.Slot2")).getItemMeta().getLore().equals(i.getLorerenametag()) || player.getOpenInventory().getItem(getConfig().getInt("GUI.Rename.Slot2")).getItemMeta().getLore().equals(i.getLockedlore()) && !player.getOpenInventory().getItem(getConfig().getInt("GUI.Rename.Slot1")).getType().equals(Material.AIR)) {
+                            ItemStack item3 = player.getOpenInventory().getItem(getConfig().getInt("GUI.Rename.Slot2"));
                             if (item3.getItemMeta().hasDisplayName()) {
-                                player.getOpenInventory().setItem(4, i.readyr());
-                                ItemStack item1 = new ItemStack(player.getOpenInventory().getItem(1));
+                                player.getOpenInventory().setItem(getConfig().getInt("GUI.Rename.Changer"), i.readyr());
+                                ItemStack item1 = new ItemStack(player.getOpenInventory().getItem(getConfig().getInt("GUI.Rename.Slot1")));
                                 ItemStack item7 = new ItemStack(item1);
                                 ItemMeta meta = item7.getItemMeta();
                                 meta.setDisplayName(item3.getItemMeta().getDisplayName());
                                 item7.setItemMeta(meta);
-                                player.getOpenInventory().setItem(7, item7);
+                                player.getOpenInventory().setItem(getConfig().getInt("GUI.Rename.Slot3"), item7);
                                 return;
                             }
                         }
@@ -158,184 +157,187 @@ public class ItemRename extends JavaPlugin {
                     cancel();
                 }
                 if (player.getOpenInventory().getTitle().equalsIgnoreCase(msgUtils.colorize(getConfig().getString("Messages.ColorTitle")))) {
-                    if (player.getOpenInventory().getItem(3).getType().equals(Material.AIR) && player.getOpenInventory().getItem(1).getType().equals(Material.AIR)) {
-                        player.getOpenInventory().setItem(4, i.waiting());
-                        player.getOpenInventory().setItem(7, new ItemStack(Material.AIR));
+                    if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).getType().equals(Material.AIR) && player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot1")).getType().equals(Material.AIR)) {
+                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Changer"), i.waiting());
+                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Slot3"), new ItemStack(Material.AIR));
                         return;
                     }
-                    if (player.getOpenInventory().getItem(3).getType().equals(Material.AIR)) {
-                        player.getOpenInventory().setItem(4, i.error());
-                        player.getOpenInventory().setItem(7, new ItemStack(Material.AIR));
+                    if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).getType().equals(Material.AIR)) {
+                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Changer"), i.error());
+                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Slot3"), new ItemStack(Material.AIR));
                         return;
                     }
-                    if (player.getOpenInventory().getItem(1).getType().equals(Material.AIR)) {
-                        player.getOpenInventory().setItem(4, i.error());
-                        player.getOpenInventory().setItem(7, new ItemStack(Material.AIR));
+                    if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot1")).getType().equals(Material.AIR)) {
+                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Changer"), i.error());
+                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Slot3"), new ItemStack(Material.AIR));
                         return;
                     }
-                    if (!player.getOpenInventory().getItem(1).getType().equals(Material.AIR)) {
-                        if (player.getOpenInventory().getItem(1).hasItemMeta()) {
-                            if (player.getOpenInventory().getItem(1).getItemMeta().getLore().equals(i.getLockedlore())) {
-                                player.getOpenInventory().setItem(4, i.error());
+                    if(!player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot1")).getType().equals(Material.NAME_TAG)){
+                        return;
+                    }
+                    if (!player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot1")).getType().equals(Material.AIR)) {
+                        if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot1")).hasItemMeta()) {
+                            if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot1")).getItemMeta().getLore().equals(i.getLockedlore())) {
+                                player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Changer"), i.error());
                                 return;
                             }
                         } else {
                             return;
                         }
-                        if (player.getOpenInventory().getItem(1).getItemMeta().getLore() == null) {
-                            player.getOpenInventory().setItem(4, i.error());
+                        if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot1")).getItemMeta().getLore() == null) {
+                            player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Changer"), i.error());
                             return;
                         }
                         if (getConfig().getString("ColorizeCostEnabled").equalsIgnoreCase("true")) {
                             if (economy.getBalance(player) < Double.valueOf(getConfig().getString("ColorizeCost"))) {
-                                player.getOpenInventory().setItem(4, i.nomoneyc());
+                                player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Changer"), i.nomoneyc());
                                 return;
                             }
                         }
-                        if (player.getOpenInventory().getItem(1).getItemMeta().getLore().equals(i.getLorecolortag()) && player.getOpenInventory().getItem(3).hasItemMeta() || player.getOpenInventory().getItem(3).equals(i.darkred(1)) || player.getOpenInventory().getItem(3).equals(i.black(1)) || player.getOpenInventory().getItem(3).equals(i.green(1)) || player.getOpenInventory().getItem(3).equals(i.darkblue(1)) || player.getOpenInventory().getItem(3).equals(i.magenta(1)) || player.getOpenInventory().getItem(3).equals(i.aqua(1)) || player.getOpenInventory().getItem(3).equals(i.gray(1)) || player.getOpenInventory().getItem(3).equals(i.darkgray(1)) || player.getOpenInventory().getItem(3).equals(i.pink(1)) || player.getOpenInventory().getItem(3).equals(i.lime(1)) || player.getOpenInventory().getItem(3).equals(i.yellow(1)) || player.getOpenInventory().getItem(3).equals(i.cyan(1)) || player.getOpenInventory().getItem(3).equals(i.orange(1)) || player.getOpenInventory().getItem(3).equals(i.blue(1)) || player.getOpenInventory().getItem(3).equals(i.lightred(1)) || player.getOpenInventory().getItem(3).equals(i.white(1)) || player.getOpenInventory().getItem(3).equals(i.bold(1)) || player.getOpenInventory().getItem(3).equals(i.italic(1)) || player.getOpenInventory().getItem(3).equals(i.locked(1))) {
-                            player.getOpenInventory().setItem(4, i.readyc());
+                        if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot1")).getItemMeta().getLore().equals(i.getLorecolortag()) && player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).hasItemMeta() || player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.darkred(1)) || player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.black(1)) || player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.green(1)) || player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.darkblue(1)) || player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.magenta(1)) || player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.aqua(1)) || player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.gray(1)) || player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.darkgray(1)) || player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.pink(1)) || player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.lime(1)) || player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.yellow(1)) || player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.cyan(1)) || player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.orange(1)) || player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.blue(1)) || player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.lightred(1)) || player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.white(1)) || player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.bold(1)) || player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.italic(1)) || player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.locked(1))) {
+                            player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Changer"), i.readyc());
                             List<String> rename = getConfig().getStringList("TagRenameLore");
                             rename.replaceAll(string -> msgUtils.colorize(string));
-                            ItemStack item1 = player.getOpenInventory().getItem(1);
+                            ItemStack item1 = player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot1"));
 
                             if (item1.getItemMeta().hasDisplayName()) {
-                                if (player.getOpenInventory().getItem(3).getItemMeta().getLore().equals(i.getDyelore())) {
+                                if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).getItemMeta().getLore().equals(i.getDyelore())) {
                                     ItemStack item7 = new ItemStack(item1);
                                     ItemMeta meta = item7.getItemMeta();
-                                    if (player.getOpenInventory().getItem(3).equals(i.locked(1))) {
+                                    if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.locked(1))) {
                                         meta.setLore(i.getLockedlore());
                                         item7.setItemMeta(meta);
-                                        player.getOpenInventory().setItem(7, item7);
+                                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Slot3"), item7);
                                         return;
                                     }
-                                    if (player.getOpenInventory().getItem(3).equals(i.italic(1))) {
+                                    if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.italic(1))) {
                                         meta.setDisplayName(ChatColor.getLastColors(item1.getItemMeta().getDisplayName()) + ChatColor.ITALIC + ChatColor.stripColor(item1.getItemMeta().getDisplayName()));
                                         meta.addEnchant(Enchantment.LURE, 0, true);
                                         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                                         meta.setLore(rename);
                                         item7.setItemMeta(meta);
-                                        player.getOpenInventory().setItem(7, item7);
+                                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Slot3"), item7);
                                         return;
                                     }
-                                    if (player.getOpenInventory().getItem(3).equals(i.bold(1))) {
+                                    if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.bold(1))) {
                                         meta.setDisplayName(ChatColor.getLastColors(item1.getItemMeta().getDisplayName()) + ChatColor.BOLD + ChatColor.stripColor(item1.getItemMeta().getDisplayName()));
                                         meta.addEnchant(Enchantment.LURE, 0, true);
                                         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                                         meta.setLore(rename);
                                         item7.setItemMeta(meta);
-                                        player.getOpenInventory().setItem(7, item7);
+                                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Slot3"), item7);
                                         return;
                                     }
-                                    if (player.getOpenInventory().getItem(3).equals(i.black(1))) {
+                                    if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.black(1))) {
                                         meta.setDisplayName(msgUtils.colorize("&0" + ChatColor.stripColor(item1.getItemMeta().getDisplayName())));
                                         meta.setLore(rename);
                                         item7.setItemMeta(meta);
-                                        player.getOpenInventory().setItem(7, item7);
+                                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Slot3"), item7);
                                         return;
                                     }
-                                    if (player.getOpenInventory().getItem(3).equals(i.darkblue(1))) {
+                                    if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.darkblue(1))) {
                                         meta.setDisplayName(msgUtils.colorize("&1" + ChatColor.stripColor(item1.getItemMeta().getDisplayName())));
                                         meta.setLore(rename);
                                         item7.setItemMeta(meta);
-                                        player.getOpenInventory().setItem(7, item7);
+                                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Slot3"), item7);
                                         return;
                                     }
-                                    if (player.getOpenInventory().getItem(3).equals(i.green(1))) {
+                                    if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.green(1))) {
                                         meta.setDisplayName(msgUtils.colorize("&2" + ChatColor.stripColor(item1.getItemMeta().getDisplayName())));
                                         meta.setLore(rename);
                                         item7.setItemMeta(meta);
-                                        player.getOpenInventory().setItem(7, item7);
+                                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Slot3"), item7);
                                         return;
                                     }
-                                    if (player.getOpenInventory().getItem(3).equals(i.cyan(1))) {
+                                    if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.cyan(1))) {
                                         meta.setDisplayName(msgUtils.colorize("&3" + ChatColor.stripColor(item1.getItemMeta().getDisplayName())));
                                         meta.setLore(rename);
                                         item7.setItemMeta(meta);
-                                        player.getOpenInventory().setItem(7, item7);
+                                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Slot3"), item7);
                                         return;
                                     }
-                                    if (player.getOpenInventory().getItem(3).equals(i.darkred(1))) {
+                                    if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.darkred(1))) {
                                         meta.setDisplayName(msgUtils.colorize("&4" + ChatColor.stripColor(item1.getItemMeta().getDisplayName())));
                                         meta.setLore(rename);
                                         item7.setItemMeta(meta);
-                                        player.getOpenInventory().setItem(7, item7);
+                                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Slot3"), item7);
                                         return;
                                     }
-                                    if (player.getOpenInventory().getItem(3).equals(i.magenta(1))) {
+                                    if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.magenta(1))) {
                                         meta.setDisplayName(msgUtils.colorize("&5" + ChatColor.stripColor(item1.getItemMeta().getDisplayName())));
                                         meta.setLore(rename);
                                         item7.setItemMeta(meta);
-                                        player.getOpenInventory().setItem(7, item7);
+                                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Slot3"), item7);
                                         return;
                                     }
-                                    if (player.getOpenInventory().getItem(3).equals(i.orange(1))) {
+                                    if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.orange(1))) {
                                         meta.setDisplayName(msgUtils.colorize("&6" + ChatColor.stripColor(item1.getItemMeta().getDisplayName())));
                                         meta.setLore(rename);
                                         item7.setItemMeta(meta);
-                                        player.getOpenInventory().setItem(7, item7);
+                                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Slot3"), item7);
                                         return;
                                     }
-                                    if (player.getOpenInventory().getItem(3).equals(i.gray(1))) {
+                                    if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.gray(1))) {
                                         meta.setDisplayName(msgUtils.colorize("&7" + ChatColor.stripColor(item1.getItemMeta().getDisplayName())));
                                         meta.setLore(rename);
                                         item7.setItemMeta(meta);
-                                        player.getOpenInventory().setItem(7, item7);
+                                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Slot3"), item7);
                                         return;
                                     }
-                                    if (player.getOpenInventory().getItem(3).equals(i.darkgray(1))) {
+                                    if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.darkgray(1))) {
                                         meta.setDisplayName(msgUtils.colorize("&8" + ChatColor.stripColor(item1.getItemMeta().getDisplayName())));
                                         meta.setLore(rename);
                                         item7.setItemMeta(meta);
-                                        player.getOpenInventory().setItem(7, item7);
+                                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Slot3"), item7);
                                         return;
                                     }
-                                    if (player.getOpenInventory().getItem(3).equals(i.blue(1))) {
+                                    if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.blue(1))) {
                                         meta.setDisplayName(msgUtils.colorize("&9" + ChatColor.stripColor(item1.getItemMeta().getDisplayName())));
                                         meta.setLore(rename);
                                         item7.setItemMeta(meta);
-                                        player.getOpenInventory().setItem(7, item7);
+                                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Slot3"), item7);
                                         return;
                                     }
-                                    if (player.getOpenInventory().getItem(3).equals(i.lime(1))) {
+                                    if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.lime(1))) {
                                         meta.setDisplayName(msgUtils.colorize("&a" + ChatColor.stripColor(item1.getItemMeta().getDisplayName())));
                                         meta.setLore(rename);
                                         item7.setItemMeta(meta);
-                                        player.getOpenInventory().setItem(7, item7);
+                                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Slot3"), item7);
                                         return;
                                     }
-                                    if (player.getOpenInventory().getItem(3).equals(i.aqua(1))) {
+                                    if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.aqua(1))) {
                                         meta.setDisplayName(msgUtils.colorize("&b" + ChatColor.stripColor(item1.getItemMeta().getDisplayName())));
                                         meta.setLore(rename);
                                         item7.setItemMeta(meta);
-                                        player.getOpenInventory().setItem(7, item7);
+                                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Slot3"), item7);
                                         return;
                                     }
-                                    if (player.getOpenInventory().getItem(3).equals(i.lightred(1))) {
+                                    if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.lightred(1))) {
                                         meta.setDisplayName(msgUtils.colorize("&c" + ChatColor.stripColor(item1.getItemMeta().getDisplayName())));
                                         meta.setLore(rename);
                                         item7.setItemMeta(meta);
-                                        player.getOpenInventory().setItem(7, item7);
+                                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Slot3"), item7);
                                         return;
                                     }
-                                    if (player.getOpenInventory().getItem(3).equals(i.pink(1))) {
+                                    if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.pink(1))) {
                                         meta.setDisplayName(msgUtils.colorize("&d" + ChatColor.stripColor(item1.getItemMeta().getDisplayName())));
                                         meta.setLore(rename);
                                         item7.setItemMeta(meta);
-                                        player.getOpenInventory().setItem(7, item7);
+                                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Slot3"), item7);
                                         return;
                                     }
-                                    if (player.getOpenInventory().getItem(3).equals(i.yellow(1))) {
+                                    if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.yellow(1))) {
                                         meta.setDisplayName(msgUtils.colorize("&e" + ChatColor.stripColor(item1.getItemMeta().getDisplayName())));
                                         meta.setLore(rename);
                                         item7.setItemMeta(meta);
-                                        player.getOpenInventory().setItem(7, item7);
+                                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Slot3"), item7);
                                         return;
                                     }
-                                    if (player.getOpenInventory().getItem(3).equals(i.white(1))) {
+                                    if (player.getOpenInventory().getItem(getConfig().getInt("GUI.Colorize.Slot2")).equals(i.white(1))) {
                                         meta.setDisplayName(msgUtils.colorize("&f" + ChatColor.stripColor(item1.getItemMeta().getDisplayName())));
                                         meta.setLore(rename);
                                         item7.setItemMeta(meta);
-                                        player.getOpenInventory().setItem(7, item7);
+                                        player.getOpenInventory().setItem(getConfig().getInt("GUI.Colorize.Slot3"), item7);
                                         return;
                                     }
                                 }

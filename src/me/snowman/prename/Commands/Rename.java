@@ -35,22 +35,13 @@ public class Rename implements CommandExecutor {
     ConfigManager c = new ConfigManager();
     private ArrayList<String> keys = new ArrayList<>();
 
-    public boolean isInt(String str) {
-        try {
-            Integer.parseInt(str);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
 
 
-        Inventory invren = Bukkit.createInventory(null, 9, msgUtils.colorize(plugin.getConfig().getString("Messages.RenameTitle")));
-        Inventory invcol = Bukkit.createInventory(null, 9, msgUtils.colorize(plugin.getConfig().getString("Messages.ColorTitle")));
+        Inventory invren = Bukkit.createInventory(null, plugin.getConfig().getInt("GUI.Rename.Size"), msgUtils.colorize(plugin.getConfig().getString("Messages.RenameTitle")));
+        Inventory invcol = Bukkit.createInventory(null, plugin.getConfig().getInt("GUI.Colorize.Size"), msgUtils.colorize(plugin.getConfig().getString("Messages.ColorTitle")));
 
         List<String> lorerenametag = plugin.getConfig().getStringList("TagRenameLore");
         lorerenametag.replaceAll(string -> msgUtils.colorize(string));
@@ -66,13 +57,78 @@ public class Rename implements CommandExecutor {
 
         if (cmd.getName().equalsIgnoreCase("rename")) {
             if (sender instanceof Player) {
+
                 Player player = (Player) sender;
-                invren.setItem(4, i.waiting());
-                invren.setItem(0, i.empty());
-                invren.setItem(2, i.empty());
-                invren.setItem(6, i.empty());
-                invren.setItem(5, i.empty());
-                invren.setItem(8, i.empty());
+                if(!player.hasPermission("itemrename.bypass") || player.hasPermission("itemrename.*")){
+                for(String world: plugin.getConfig().getStringList("DisabledWorlds")) {
+                    if (player.getWorld().getName().equalsIgnoreCase(world)) {
+                        player.sendMessage(msgUtils.colorize(plugin.getConfig().getString("Messages.DWorld")));
+                        return true;
+                    }
+                }
+                }
+                for(int sl = 0; sl < plugin.getConfig().getInt("GUI.Rename.Size"); sl++){
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("black")){
+                        invren.setItem(sl, i.blackp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("brown")){
+                        invren.setItem(sl, i.brownp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("blue")){
+                        invren.setItem(sl, i.bluep());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("cyan")){
+                        invren.setItem(sl, i.cyanp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("magenta")){
+                        invren.setItem(sl, i.magentap());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("orange")){
+                        invren.setItem(sl, i.goldp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("gray")){
+                        invren.setItem(sl, i.grayp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("darkgray")){
+                        invren.setItem(sl, i.darkgrayp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("purple")){
+                        invren.setItem(sl, i.purplep());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("lime")){
+                        invren.setItem(sl, i.limep());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("aqua")){
+                        invren.setItem(sl, i.aquap());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("red")){
+                        invren.setItem(sl, i.redp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("pink")){
+                        invren.setItem(sl, i.pinkp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("white")){
+                        invren.setItem(sl, i.whitep());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("yellow")){
+                        invren.setItem(sl, i.yellowp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("green")){
+                        invren.setItem(sl, i.greenp());
+                    }
+                    if(sl == plugin.getConfig().getInt("GUI.Rename.Slot1") || sl == plugin.getConfig().getInt("GUI.Rename.Slot2") || sl == plugin.getConfig().getInt("GUI.Rename.Slot3")){
+                        invren.setItem(sl,  i.air());
+                    }
+                    if(sl == plugin.getConfig().getInt("GUI.Rename.Changer")){
+                        invren.setItem(sl, i.waiting());
+                    }
+                }
+//                invren.setItem(4, i.waiting());
+//                invren.setItem(0, i.empty());
+//                invren.setItem(2, i.empty());
+//                invren.setItem(6, i.empty());
+//                invren.setItem(5, i.empty());
+//                invren.setItem(8, i.empty());
 
                 player.openInventory(invren);
                 plugin.rename(player);
@@ -83,12 +139,70 @@ public class Rename implements CommandExecutor {
         if (cmd.getName().equalsIgnoreCase("colorize")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
-                invcol.setItem(4, i.waiting());
-                invcol.setItem(0, i.empty());
-                invcol.setItem(2, i.empty());
-                invcol.setItem(6, i.empty());
-                invcol.setItem(5, i.empty());
-                invcol.setItem(8, i.empty());
+                if(!player.hasPermission("itemrename.bypass") || player.hasPermission("itemrename.*")){
+                    for(String world: plugin.getConfig().getStringList("DisabledWorlds")) {
+                        if (player.getWorld().getName().equalsIgnoreCase(world)) {
+                            player.sendMessage(msgUtils.colorize(plugin.getConfig().getString("Messages.DWorld")));
+                            return true;
+                        }
+                    }
+                }
+                for(int sl = 0; sl < plugin.getConfig().getInt("GUI.Colorize.Size"); sl++){
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("black")){
+                        invcol.setItem(sl, i.blackp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("brown")){
+                        invcol.setItem(sl, i.brownp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("blue")){
+                        invcol.setItem(sl, i.bluep());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("cyan")){
+                        invcol.setItem(sl, i.cyanp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("magenta")){
+                        invcol.setItem(sl, i.magentap());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("orange")){
+                        invcol.setItem(sl, i.goldp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("gray")){
+                        invcol.setItem(sl, i.grayp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("darkgray")){
+                        invcol.setItem(sl, i.darkgrayp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("purple")){
+                        invcol.setItem(sl, i.purplep());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("lime")){
+                        invcol.setItem(sl, i.limep());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("aqua")){
+                        invcol.setItem(sl, i.aquap());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("red")){
+                        invcol.setItem(sl, i.redp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("pink")){
+                        invcol.setItem(sl, i.pinkp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("white")){
+                        invcol.setItem(sl, i.whitep());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("yellow")){
+                        invcol.setItem(sl, i.yellowp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("green")){
+                        invcol.setItem(sl, i.greenp());
+                    }
+                    if(sl == plugin.getConfig().getInt("GUI.Colorize.Slot1") || sl == plugin.getConfig().getInt("GUI.Colorize.Slot2") || sl == plugin.getConfig().getInt("GUI.Colorize.Slot3")){
+                        invcol.setItem(sl,  i.air());
+                    }
+                    if(sl == plugin.getConfig().getInt("GUI.Colorize.Changer")){
+                        invcol.setItem(sl, i.waiting());
+                    }
+                }
 
                 player.openInventory(invcol);
                 plugin.colorize(player);
@@ -110,12 +224,71 @@ public class Rename implements CommandExecutor {
         if (args[0].equalsIgnoreCase("rename")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
-                invren.setItem(4, i.waiting());
-                invren.setItem(0, i.empty());
-                invren.setItem(2, i.empty());
-                invren.setItem(6, i.empty());
-                invren.setItem(5, i.empty());
-                invren.setItem(8, i.empty());
+                if(!player.hasPermission("itemrename.bypass") || player.hasPermission("itemrename.*")){
+                    for(String world: plugin.getConfig().getStringList("DisabledWorlds")) {
+                        if (player.getWorld().getName().equalsIgnoreCase(world)) {
+                            player.sendMessage(msgUtils.colorize(plugin.getConfig().getString("Messages.DWorld")));
+                            return true;
+                        }
+                    }
+                }
+                for(int sl = 0; sl < plugin.getConfig().getInt("GUI.Rename.Size"); sl++){
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("black"))
+                        if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("black")){
+                            invren.setItem(sl, i.blackp());
+                        }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("brown")){
+                        invren.setItem(sl, i.brownp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("blue")){
+                        invren.setItem(sl, i.bluep());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("cyan")){
+                        invren.setItem(sl, i.cyanp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("magenta")){
+                        invren.setItem(sl, i.magentap());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("orange")){
+                        invren.setItem(sl, i.goldp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("gray")){
+                        invren.setItem(sl, i.grayp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("darkgray")){
+                        invren.setItem(sl, i.darkgrayp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("purple")){
+                        invren.setItem(sl, i.purplep());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("lime")){
+                        invren.setItem(sl, i.limep());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("aqua")){
+                        invren.setItem(sl, i.aquap());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("red")){
+                        invren.setItem(sl, i.redp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("pink")){
+                        invren.setItem(sl, i.pinkp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("white")){
+                        invren.setItem(sl, i.whitep());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("yellow")){
+                        invren.setItem(sl, i.yellowp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("green")){
+                        invren.setItem(sl, i.greenp());
+                    }
+                    if(sl == plugin.getConfig().getInt("GUI.Rename.Slot1") || sl == plugin.getConfig().getInt("GUI.Rename.Slot2") || sl == plugin.getConfig().getInt("GUI.Rename.Slot3")){
+                        invren.setItem(sl,  i.air());
+                    }
+                    if(sl == plugin.getConfig().getInt("GUI.Rename.Changer")){
+                        invren.setItem(sl, i.waiting());
+                    }
+                }
 
                 player.openInventory(invren);
                 plugin.rename(player);
@@ -125,12 +298,70 @@ public class Rename implements CommandExecutor {
         if (args[0].equalsIgnoreCase("colorize")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
-                invcol.setItem(4, i.waiting());
-                invcol.setItem(0, i.empty());
-                invcol.setItem(2, i.empty());
-                invcol.setItem(6, i.empty());
-                invcol.setItem(5, i.empty());
-                invcol.setItem(8, i.empty());
+                if(!player.hasPermission("itemrename.bypass") || player.hasPermission("itemrename.*")){
+                    for(String world: plugin.getConfig().getStringList("DisabledWorlds")) {
+                        if (player.getWorld().getName().equalsIgnoreCase(world)) {
+                            player.sendMessage(msgUtils.colorize(plugin.getConfig().getString("Messages.DWorld")));
+                            return true;
+                        }
+                    }
+                }
+                for(int sl = 0; sl < plugin.getConfig().getInt("GUI.Colorize.Size"); sl++){
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("black")){
+                        invcol.setItem(sl, i.blackp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("brown")){
+                        invcol.setItem(sl, i.brownp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("blue")){
+                        invcol.setItem(sl, i.bluep());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("cyan")){
+                        invcol.setItem(sl, i.cyanp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("magenta")){
+                        invcol.setItem(sl, i.magentap());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("orange")){
+                        invcol.setItem(sl, i.goldp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("gray")){
+                        invcol.setItem(sl, i.grayp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("darkgray")){
+                        invcol.setItem(sl, i.darkgrayp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("purple")){
+                        invcol.setItem(sl, i.purplep());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("lime")){
+                        invcol.setItem(sl, i.limep());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("aqua")){
+                        invcol.setItem(sl, i.aquap());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("red")){
+                        invcol.setItem(sl, i.redp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("pink")){
+                        invcol.setItem(sl, i.pinkp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("white")){
+                        invcol.setItem(sl, i.whitep());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("yellow")){
+                        invcol.setItem(sl, i.yellowp());
+                    }
+                    if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("green")){
+                        invcol.setItem(sl, i.greenp());
+                    }
+                    if(sl == plugin.getConfig().getInt("GUI.Colorize.Slot1") || sl == plugin.getConfig().getInt("GUI.Colorize.Slot2") || sl == plugin.getConfig().getInt("GUI.Colorize.Slot3")){
+                        invcol.setItem(sl,  i.air());
+                    }
+                    if(sl == plugin.getConfig().getInt("GUI.Colorize.Changer")){
+                        invcol.setItem(sl, i.waiting());
+                    }
+                }
 
                 player.openInventory(invcol);
                 plugin.colorize(player);
@@ -151,7 +382,7 @@ public class Rename implements CommandExecutor {
                     sender.sendMessage(msgUtils.colorize("&1The console can't have dyes :("));
                 } else {
                     Player player = (Player) sender;
-                    if (player.hasPermission("itemrename.dye")) {
+                    if (player.hasPermission("itemrename.dye") || player.hasPermission("itemrename.*")) {
                         int amount = 1;
                         if (args[1].equalsIgnoreCase("all")) {
                             player.getInventory().addItem(i.black(amount));
@@ -196,7 +427,7 @@ public class Rename implements CommandExecutor {
                 return true;
             }
             Player player = (Player) sender;
-            if (player.hasPermission("itemrename.tag")) {
+            if (player.hasPermission("itemrename.tag") || player.hasPermission("itemrename.*")) {
                 if (args.length >= 2) {
                     String name = "";
                     for (int i = 1; i < args.length; i++) {
@@ -206,7 +437,7 @@ public class Rename implements CommandExecutor {
                     ItemStack tag = new ItemStack(Material.NAME_TAG, 1);
                     ItemMeta tagmeta = tag.getItemMeta();
                     lorecolortag.replaceAll(string -> msgUtils.colorize(string));
-                    tagmeta.setLore(lorecolortag);
+                    tagmeta.setLore(lorerenametag);
                     tagmeta.setDisplayName(msgUtils.colorize(name));
                     tag.setItemMeta(tagmeta);
                     player.getInventory().addItem(tag);
@@ -237,7 +468,7 @@ public class Rename implements CommandExecutor {
                 return true;
             }
             Player player = (Player) sender;
-            if (player.hasPermission("itemrename.tag")) {
+            if (player.hasPermission("itemrename.tag") || player.hasPermission("itemrename.*")) {
                 if (args.length >= 2) {
                     String name = "";
                     for (int i = 1; i < args.length; i++) {
@@ -275,7 +506,7 @@ public class Rename implements CommandExecutor {
         if(args[0].equalsIgnoreCase("setblock")){
             if(sender instanceof Player) {
                 Player player = (Player) sender;
-                if (player.hasPermission("itemrename.setblock")) {
+                if (player.hasPermission("itemrename.setblock") || player.hasPermission("itemrename.*")) {
                     if (args.length == 1 || args.length == 2) {
                         sender.sendMessage(msgUtils.colorize("&9Usage: &f/ir setblock <name> <rename/colorize>"));
                         return true;
@@ -348,7 +579,7 @@ public class Rename implements CommandExecutor {
         }
 
         if (args[0].equalsIgnoreCase("update")) {
-            if (sender.hasPermission("itemrename.update")) {
+            if (sender.hasPermission("itemrename.update") || sender.hasPermission("itemrename.*")) {
                 try {
                     String spigotId = "58756";
                     // Open connection with spigot's web API
@@ -374,9 +605,11 @@ public class Rename implements CommandExecutor {
 
 
         if (args[0].equalsIgnoreCase("reload")) {
-            if (sender.hasPermission("itemrename.reload")) {
+            if (sender.hasPermission("itemrename.reload") || sender.hasPermission("itemrename.*")) {
                 i.matInit();
+                plugin.saveDefaultConfig();
                 plugin.reloadConfig();
+                c.setupData();
                 c.reloadData();
                 sender.sendMessage(msgUtils.colorize(plugin.getConfig().getString("Messages.Reload")));
                 return true;

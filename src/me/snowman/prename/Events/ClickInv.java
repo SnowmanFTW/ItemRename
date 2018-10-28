@@ -2,6 +2,7 @@ package me.snowman.prename.Events;
 
 import me.snowman.prename.ItemRename;
 import me.snowman.prename.Utils.Items;
+import me.snowman.prename.Utils.MessageUtils;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -18,6 +19,7 @@ public class ClickInv implements Listener {
     private ItemRename plugin = ItemRename.getPlugin(ItemRename.class);
     private static Economy econ = null;
     Items i = new Items();
+    private static MessageUtils msgUtils = new MessageUtils();
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
@@ -49,45 +51,79 @@ public class ClickInv implements Listener {
             if (item == new ItemStack(Material.AIR)) {
                 event.setCancelled(true);
             }
-            if(event.getClickedInventory() != player.getInventory() && event.getRawSlot() == 7){
-                event.setCancelled(true);
+            if(event.getInventory().getTitle().equalsIgnoreCase(msgUtils.colorize(plugin.getConfig().getString("Messages.RenameTitle")))){
+                if(event.getClickedInventory() != player.getInventory() && event.getRawSlot() == plugin.getConfig().getInt("GUI.Rename.Slot3")){
+                    event.setCancelled(true);
+                }
+                if(event.isShiftClick()){
+                    if(event.getRawSlot() == plugin.getConfig().getInt("GUI.Rename.Slot2") || event.getRawSlot() == plugin.getConfig().getInt("GUI.Rename.Slot1")){
+                        return;
+                    }
+                }
+                if(event.isShiftClick()){
+                    if(event.getInventory().firstEmpty() == plugin.getConfig().getInt("GUI.Rename.Slot3")){
+                        event.setCancelled(true);
+                    }
+                }
             }
-            if(event.isShiftClick()){
-                if(event.getRawSlot() == 3 || event.getRawSlot() == 1){
-                    return;
+            if(event.getInventory().getTitle().equalsIgnoreCase(msgUtils.colorize(plugin.getConfig().getString("Messages.ColorTitle")))){
+                if(event.getClickedInventory() != player.getInventory() && event.getRawSlot() == plugin.getConfig().getInt("GUI.Colorize.Slot3")){
+                    event.setCancelled(true);
+                }
+                if(event.isShiftClick()){
+                    if(event.getRawSlot() == plugin.getConfig().getInt("GUI.Colorize.Slot2") || event.getRawSlot() == plugin.getConfig().getInt("GUI.Colorize.Slot1")){
+                        return;
+                    }
+                }
+                if(event.isShiftClick()){
+                    if(event.getInventory().firstEmpty() == plugin.getConfig().getInt("GUI.Colorize.Slot3")){
+                        event.setCancelled(true);
+                    }
                 }
             }
             if(event.isShiftClick()){
-                if(event.getInventory().firstEmpty() == 7){
+                if(event.getInventory().firstEmpty() == plugin.getConfig().getInt("GUI.Colorize.Slot3")){
                     event.setCancelled(true);
                 }
             }
-            if (event.getCurrentItem().equals(i.empty()) || event.getCurrentItem().equals(i.waiting()) || event.getCurrentItem().equals(i.error()) || event.getCurrentItem().equals(i.nomoneyc()) || event.getCurrentItem().equals(i.nomoneyr())) {
+            if (event.getCurrentItem().equals(i.blackp()) || event.getCurrentItem().equals(i.brownp()) || event.getCurrentItem().equals(i.cyanp()) || event.getCurrentItem().equals(i.magentap()) || event.getCurrentItem().equals(i.darkgrayp()) ||event.getCurrentItem().equals(i.limep()) || event.getCurrentItem().equals(i.grayp()) || event.getCurrentItem().equals(i.aquap()) || event.getCurrentItem().equals(i.redp()) || event.getCurrentItem().equals(i.pinkp()) || event.getCurrentItem().equals(i.whitep()) || event.getCurrentItem().equals(i.goldp()) || event.getCurrentItem().equals(i.yellowp()) || event.getCurrentItem().equals(i.greenp()) || event.getCurrentItem().equals(i.waiting()) || event.getCurrentItem().equals(i.error()) || event.getCurrentItem().equals(i.nomoneyc()) || event.getCurrentItem().equals(i.nomoneyr())) {
                 event.setCancelled(true);
             }
-            if (event.getInventory().getItem(3) == null) {
-                return;
-           }
-            if(event.getInventory().getItem(1) == null){
-                return;
-           }
-            if(event.getCurrentItem().equals(i.readyc()) && player.getOpenInventory().getItem(1).getItemMeta().getLore().equals(i.getLorerenametag()) && player.getOpenInventory().getItem(3).equals(i.bold(1)) || player.getOpenInventory().getItem(3).equals(i.italic(1)) || player.getOpenInventory().getItem(3).equals(i.locked(1))){
-                if(event.getInventory().getItem(7) == null){
+            if(event.getInventory().getTitle().equalsIgnoreCase(msgUtils.colorize(plugin.getConfig().getString("Messages.RenameTitle"))))
+            {
+                if (event.getInventory().getItem(plugin.getConfig().getInt("GUI.Rename.Slot2")) == null) {
                     return;
                 }
-                player.getInventory().addItem(event.getInventory().getItem(7));
-                event.getInventory().setItem(3, new ItemStack(Material.AIR));
-                event.getInventory().setItem(1, new ItemStack(Material.AIR));
+                if (event.getInventory().getItem(plugin.getConfig().getInt("GUI.Rename.Slot1")) == null) {
+                    return;
+                }
+            }
+            if(event.getInventory().getTitle().equalsIgnoreCase(msgUtils.colorize(plugin.getConfig().getString("Messages.ColorTitle"))))
+            {
+                if (event.getInventory().getItem(plugin.getConfig().getInt("GUI.Colorize.Slot2")) == null) {
+                    return;
+                }
+                if (event.getInventory().getItem(plugin.getConfig().getInt("GUI.Colorize.Slot1")) == null) {
+                    return;
+                }
+            }
+            if(event.getCurrentItem().equals(i.readyc()) && player.getOpenInventory().getItem(plugin.getConfig().getInt("GUI.Colorize.Slot1")).getItemMeta().getLore().equals(i.getLorerenametag()) && player.getOpenInventory().getItem(plugin.getConfig().getInt("GUI.Colorize.Slot2")).equals(i.bold(1)) || player.getOpenInventory().getItem(plugin.getConfig().getInt("GUI.Colorize.Slot2")).equals(i.italic(1)) || player.getOpenInventory().getItem(plugin.getConfig().getInt("GUI.Colorize.Slot2")).equals(i.locked(1))){
+                if(event.getInventory().getItem(plugin.getConfig().getInt("GUI.Colorize.Slot3")) == null){
+                    return;
+                }
+                player.getInventory().addItem(event.getInventory().getItem(plugin.getConfig().getInt("GUI.Colorize.Slot3")));
+                event.getInventory().setItem(plugin.getConfig().getInt("GUI.Colorize.Slot2"), new ItemStack(Material.AIR));
+                event.getInventory().setItem(plugin.getConfig().getInt("GUI.Colorize.Slot1"), new ItemStack(Material.AIR));
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("Messages.SuccesColor")));
                 player.closeInventory();
                 event.setCancelled(true);
                 return;
             }
             if(event.getCurrentItem().equals(i.readyc())){
-                if(player.getOpenInventory().getItem(1).hasItemMeta() || player.getOpenInventory().getItem(1).getItemMeta().getLore().equals(i.getLorecolortag()) || player.getOpenInventory().getItem(1).getItemMeta().getLore().equals(i.getLorerenametag())) {
-                    player.getInventory().addItem(event.getInventory().getItem(7));
-                    event.getInventory().setItem(3, new ItemStack(Material.AIR));
-                    event.getInventory().setItem(1, new ItemStack(Material.AIR));
+                if(player.getOpenInventory().getItem(plugin.getConfig().getInt("GUI.Colorize.Slot1")).hasItemMeta() || player.getOpenInventory().getItem(plugin.getConfig().getInt("GUI.Colorize.Slot1")).getItemMeta().getLore().equals(i.getLorecolortag()) || player.getOpenInventory().getItem(plugin.getConfig().getInt("GUI.Colorize.Slot1")).getItemMeta().getLore().equals(i.getLorerenametag())) {
+                    player.getInventory().addItem(event.getInventory().getItem(plugin.getConfig().getInt("GUI.Colorize.Slot3")));
+                    event.getInventory().setItem(plugin.getConfig().getInt("GUI.Colorize.Slot2"), new ItemStack(Material.AIR));
+                    event.getInventory().setItem(plugin.getConfig().getInt("GUI.Colorize.Slot1"), new ItemStack(Material.AIR));
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("Messages.SuccesColor")));
                     player.closeInventory();
                     if (plugin.getConfig().getString("ColorizeCostEnabled").equalsIgnoreCase("true")) {
@@ -98,21 +134,23 @@ public class ClickInv implements Listener {
                 event.setCancelled(true);
                 return;
             }
-            if(!(event.getInventory().getItem(1) == null) && !(event.getInventory().getItem(3) == null) && event.getInventory().getItem(3).hasItemMeta()) {
-                if (event.getCurrentItem().equals(i.readyr()) &&player.getOpenInventory().getItem(3).hasItemMeta() || player.getOpenInventory().getItem(3).getItemMeta().getLore().equals(i.getLorerenametag()) || player.getOpenInventory().getItem(3).getItemMeta().getLore().equals(i.getLockedlore()) || player.getOpenInventory().getItem(3).getItemMeta().getLore().equals(i.getLorecolortag())) {
-                    if(event.getInventory().getItem(7) == null){
-                        return;
+            if(event.getInventory().getTitle().equalsIgnoreCase(msgUtils.colorize(plugin.getConfig().getString("Messages.RenameTitle")))){
+                if(!(event.getInventory().getItem(plugin.getConfig().getInt("GUI.Rename.Slot1")) == null) && !(event.getInventory().getItem(plugin.getConfig().getInt("GUI.Rename.Slot2")) == null) && event.getInventory().getItem(plugin.getConfig().getInt("GUI.Rename.Slot2")).hasItemMeta()) {
+                    if (event.getCurrentItem().equals(i.readyr()) &&player.getOpenInventory().getItem(plugin.getConfig().getInt("GUI.Rename.Slot2")).hasItemMeta() || player.getOpenInventory().getItem(plugin.getConfig().getInt("GUI.Rename.Slot2")).getItemMeta().getLore().equals(i.getLorerenametag()) || player.getOpenInventory().getItem(plugin.getConfig().getInt("GUI.Rename.Slot2")).getItemMeta().getLore().equals(i.getLockedlore()) || player.getOpenInventory().getItem(plugin.getConfig().getInt("GUI.Rename.Slot2")).getItemMeta().getLore().equals(i.getLorecolortag())) {
+                        if(event.getInventory().getItem(plugin.getConfig().getInt("GUI.Rename.Slot3")) == null){
+                            return;
+                        }
+                        player.getInventory().addItem(event.getInventory().getItem(plugin.getConfig().getInt("GUI.Rename.Slot3")));
+                        event.getInventory().setItem(plugin.getConfig().getInt("GUI.Rename.Slot2"), new ItemStack(Material.AIR));
+                        event.getInventory().setItem(plugin.getConfig().getInt("GUI.Rename.Slot1"), new ItemStack(Material.AIR));
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("Messages.SuccesRename")));
+                        if(plugin.getConfig().getString("RenameCostEnabled").equalsIgnoreCase("true")){
+                            plugin.economy.withdrawPlayer(player, Double.valueOf(plugin.getConfig().getString("RenameCost")));
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("Messages.PaidRename")).replace("%required%", plugin.getConfig().getString("RenameCost")));
+                        }
+                        player.closeInventory();
+                        event.setCancelled(true);
                     }
-                    player.getInventory().addItem(event.getInventory().getItem(7));
-                    event.getInventory().setItem(3, new ItemStack(Material.AIR));
-                    event.getInventory().setItem(1, new ItemStack(Material.AIR));
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("Messages.SuccesRename")));
-                    if(plugin.getConfig().getString("RenameCostEnabled").equalsIgnoreCase("true")){
-                        plugin.economy.withdrawPlayer(player, Double.valueOf(plugin.getConfig().getString("RenameCost")));
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("Messages.PaidRename")).replace("%required%", plugin.getConfig().getString("RenameCost")));
-                    }
-                    player.closeInventory();
-                    event.setCancelled(true);
                 }
             }
         }

@@ -45,6 +45,17 @@ public class Items {
             mat.put("italic", "SUGAR");
             mat.put("locked", "IRON_FENCE");
             mat.put("red_glass_pane", "STAINED_GLASS_PANE");
+            mat.put("blue_glass_pane", "STAINED_GLASS_PANE");
+            mat.put("cyan_glass_pane", "STAINED_GLASS_PANE");
+            mat.put("magenta_glass_pane", "STAINED_GLASS_PANE");
+            mat.put("gray_glass_pane", "STAINED_GLASS_PANE");
+            mat.put("darkgray_glass_pane", "STAINED_GLASS_PANE");
+            mat.put("purple_glass_pane", "STAINED_GLASS_PANE");
+            mat.put("lime_glass_pane", "STAINED_GLASS_PANE");
+            mat.put("aqua_glass_pane", "STAINED_GLASS_PANE");
+            mat.put("lightred_glass_pane", "STAINED_GLASS_PANE");
+            mat.put("pink_glass_pane", "STAINED_GLASS_PANE");
+            mat.put("white_glass_pane", "STAINED_GLASS_PANE");
             mat.put("black_glass_pane", "STAINED_GLASS_PANE");
             mat.put("orange_glass_pane", "STAINED_GLASS_PANE");
             mat.put("yellow_glass_pane", "STAINED_GLASS_PANE");
@@ -71,7 +82,18 @@ public class Items {
             mat.put("bold", "GLOWSTONE_DUST");
             mat.put("italic", "SUGAR");
             mat.put("locked", "IRON_BARS");
+            mat.put("brown_glass_pane", "BROWN_STAINED_GLASS_PANE");
+            mat.put("blue_glass_pane", "BLUE_STAINED_GLASS_PANE");
+            mat.put("cyan_glass_pane", "CYAN_STAINED_GLASS_PANE");
+            mat.put("magenta_glass_pane", "MAGENTA_STAINED_GLASS_PANE");
+            mat.put("light_gray_glass_pane", "LIGHT_GRAY_STAINED_GLASS_PANE");
+            mat.put("gray_glass_pane", "GRAY_STAINED_GLASS_PANE");
+            mat.put("purple_glass_pane", "PURPLE_STAINED_GLASS_PANE");
+            mat.put("lime_glass_pane", "LIME_STAINED_GLASS_PANE");
+            mat.put("aqua_glass_pane", "LIGHT_BLUE_STAINED_GLASS_PANE");
             mat.put("red_glass_pane", "RED_STAINED_GLASS_PANE");
+            mat.put("pink_glass_pane", "PINK_STAINED_GLASS_PANE");
+            mat.put("white_glass_pane", "WHITE_STAINED_GLASS_PANE");
             mat.put("black_glass_pane", "BLACK_STAINED_GLASS_PANE");
             mat.put("orange_glass_pane", "ORANGE_STAINED_GLASS_PANE");
             mat.put("yellow_glass_pane", "YELLOW_STAINED_GLASS_PANE");
@@ -317,9 +339,75 @@ public class Items {
         return readyc;
     }
 
-    public ItemStack empty() {
-        ItemStack empty = new ItemStack(Material.matchMaterial(mat.get("black_glass_pane")), 1, (byte) 15);
-        return empty;
+    public ItemStack blackp() {
+        ItemStack blackp = new ItemStack(Material.matchMaterial(mat.get("black_glass_pane")), 1, (byte) 15);
+        return blackp;
+    }
+    public ItemStack brownp() {
+        ItemStack brownp = new ItemStack(Material.matchMaterial(mat.get("brown_glass_pane")), 1, (byte) 12);
+        return brownp;
+    }
+    public ItemStack bluep() {
+        ItemStack bluep = new ItemStack(Material.matchMaterial(mat.get("blue_glass_pane")), 1, (byte) 11);
+        return bluep;
+    }
+    public ItemStack cyanp() {
+        ItemStack cyanp = new ItemStack(Material.matchMaterial(mat.get("cyan_glass_pane")), 1, (byte) 9);
+        return cyanp;
+    }
+    public ItemStack magentap() {
+        ItemStack magentap = new ItemStack(Material.matchMaterial(mat.get("magenta_glass_pane")), 1, (byte) 2);
+        return magentap;
+    }
+    public ItemStack goldp() {
+        ItemStack goldp = new ItemStack(Material.matchMaterial(mat.get("orange_glass_pane")), 1, (byte) 1);
+        return goldp;
+    }
+    public ItemStack grayp() {
+        ItemStack grayp = new ItemStack(Material.matchMaterial(mat.get("light_gray_glass_pane")), 1, (byte) 8);
+        return grayp;
+    }
+    public ItemStack darkgrayp() {
+        ItemStack darkgrayp = new ItemStack(Material.matchMaterial(mat.get("gray_glass_pane")), 1, (byte) 7);
+        return darkgrayp;
+    }
+    public ItemStack purplep() {
+        ItemStack purplep = new ItemStack(Material.matchMaterial(mat.get("purple_glass_pane")), 1, (byte) 10);
+        return purplep;
+    }
+    public ItemStack limep() {
+        ItemStack limep = new ItemStack(Material.matchMaterial(mat.get("lime_glass_pane")), 1, (byte) 5);
+        return limep;
+    }
+    public ItemStack aquap() {
+        ItemStack aquap = new ItemStack(Material.matchMaterial(mat.get("aqua_glass_pane")), 1, (byte) 3);
+        return aquap;
+    }
+    public ItemStack redp() {
+        ItemStack redp = new ItemStack(Material.matchMaterial(mat.get("red_glass_pane")), 1, (byte) 14);
+        return redp;
+    }
+    public ItemStack pinkp() {
+        ItemStack pinkp = new ItemStack(Material.matchMaterial(mat.get("pink_glass_pane")), 1, (byte) 6);
+        return pinkp;
+    }
+    public ItemStack whitep() {
+        ItemStack whitep = new ItemStack(Material.matchMaterial(mat.get("white_glass_pane")), 1, (byte) 0);
+        return whitep;
+    }
+    public ItemStack yellowp() {
+        ItemStack yellowp = new ItemStack(Material.matchMaterial(mat.get("black_glass_pane")), 1, (byte) 4);
+        return yellowp;
+    }
+    public ItemStack greenp() {
+        ItemStack greenp = new ItemStack(Material.matchMaterial(mat.get("black_glass_pane")), 1, (byte) 13);
+        return greenp;
+    }
+
+
+    public ItemStack air() {
+        ItemStack air = new ItemStack(Material.AIR);
+        return air;
     }
 
     public ItemStack dyeColor(String color, int amount) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {

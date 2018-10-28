@@ -62,14 +62,62 @@ public class BlockInteract implements Listener {
                 }
                 if(c.getData().getString(keys.get(r) + ".Type").equalsIgnoreCase("colorize")){
                     Inventory invcol = Bukkit.createInventory(null, 9, msgUtils.colorize(plugin.getConfig().getString("Messages.ColorTitle")));
-
-                    invcol.setItem(4, i.waiting());
-                    invcol.setItem(0, i.empty());
-                    invcol.setItem(2, i.empty());
-                    invcol.setItem(6, i.empty());
-                    invcol.setItem(5, i.empty());
-                    invcol.setItem(8, i.empty());
-
+                    for(int sl = 0; sl < plugin.getConfig().getInt("GUI.Colorize.Size"); sl++){
+                        if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("black")){
+                            invcol.setItem(sl, i.blackp());
+                        }
+                        if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("brown")){
+                            invcol.setItem(sl, i.brownp());
+                        }
+                        if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("blue")){
+                            invcol.setItem(sl, i.bluep());
+                        }
+                        if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("cyan")){
+                            invcol.setItem(sl, i.cyanp());
+                        }
+                        if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("magenta")){
+                            invcol.setItem(sl, i.magentap());
+                        }
+                        if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("orange")){
+                            invcol.setItem(sl, i.goldp());
+                        }
+                        if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("gray")){
+                            invcol.setItem(sl, i.grayp());
+                        }
+                        if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("darkgray")){
+                            invcol.setItem(sl, i.darkgrayp());
+                        }
+                        if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("purple")){
+                            invcol.setItem(sl, i.purplep());
+                        }
+                        if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("lime")){
+                            invcol.setItem(sl, i.limep());
+                        }
+                        if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("aqua")){
+                            invcol.setItem(sl, i.aquap());
+                        }
+                        if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("red")){
+                            invcol.setItem(sl, i.redp());
+                        }
+                        if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("pink")){
+                            invcol.setItem(sl, i.pinkp());
+                        }
+                        if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("white")){
+                            invcol.setItem(sl, i.whitep());
+                        }
+                        if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("yellow")){
+                            invcol.setItem(sl, i.yellowp());
+                        }
+                        if(plugin.getConfig().getString("GUI.Colorize.Color").equalsIgnoreCase("green")){
+                            invcol.setItem(sl, i.greenp());
+                        }
+                        if(sl == plugin.getConfig().getInt("GUI.Colorize.Slot1") || sl == plugin.getConfig().getInt("GUI.Colorize.Slot2") || sl == plugin.getConfig().getInt("GUI.Colorize.Slot3")){
+                            invcol.setItem(sl,  i.air());
+                        }
+                        if(sl == plugin.getConfig().getInt("GUI.Colorize.Changer")){
+                            invcol.setItem(sl, i.waiting());
+                        }
+                    }
                     player.openInventory(invcol);
                     plugin.colorize(player);
 
@@ -78,13 +126,62 @@ public class BlockInteract implements Listener {
                     return;
                 }else if(c.getData().getString(keys.get(r) + ".Type").equalsIgnoreCase("rename")){
                     Inventory invren = Bukkit.createInventory(null, 9, msgUtils.colorize(plugin.getConfig().getString("Messages.RenameTitle")));
-
-                    invren.setItem(4, i.waiting());
-                    invren.setItem(0, i.empty());
-                    invren.setItem(2, i.empty());
-                    invren.setItem(6, i.empty());
-                    invren.setItem(5, i.empty());
-                    invren.setItem(8, i.empty());
+                    for(int sl = 0; sl < plugin.getConfig().getInt("GUI.Rename.Size"); sl++){
+                        if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("black")){
+                            invren.setItem(sl, i.blackp());
+                        }
+                        if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("brown")){
+                            invren.setItem(sl, i.brownp());
+                        }
+                        if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("blue")){
+                            invren.setItem(sl, i.bluep());
+                        }
+                        if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("cyan")){
+                            invren.setItem(sl, i.cyanp());
+                        }
+                        if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("magenta")){
+                            invren.setItem(sl, i.magentap());
+                        }
+                        if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("orange")){
+                            invren.setItem(sl, i.goldp());
+                        }
+                        if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("gray")){
+                            invren.setItem(sl, i.grayp());
+                        }
+                        if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("darkgray")){
+                            invren.setItem(sl, i.darkgrayp());
+                        }
+                        if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("purple")){
+                            invren.setItem(sl, i.purplep());
+                        }
+                        if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("lime")){
+                            invren.setItem(sl, i.limep());
+                        }
+                        if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("aqua")){
+                            invren.setItem(sl, i.aquap());
+                        }
+                        if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("red")){
+                            invren.setItem(sl, i.redp());
+                        }
+                        if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("pink")){
+                            invren.setItem(sl, i.pinkp());
+                        }
+                        if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("white")){
+                            invren.setItem(sl, i.whitep());
+                        }
+                        if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("yellow")){
+                            invren.setItem(sl, i.yellowp());
+                        }
+                        if(plugin.getConfig().getString("GUI.Rename.Color").equalsIgnoreCase("green")){
+                            invren.setItem(sl, i.greenp());
+                        }
+                        if(sl == plugin.getConfig().getInt("GUI.Rename.Slot1") || sl == plugin.getConfig().getInt("GUI.Rename.Slot2") || sl == plugin.getConfig().getInt("GUI.Rename.Slot3")){
+                            invren.setItem(sl,  i.air());
+                        }
+                        if(sl == plugin.getConfig().getInt("GUI.Rename.Changer")){
+                            invren.setItem(sl, i.waiting());
+                        }
+                    }
 
                     player.openInventory(invren);
                     plugin.rename(player);
